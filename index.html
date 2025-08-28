@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TestMine - анархический сервер</title>
+  <meta name="description"
+    content="Покупка доната и привилегий на сервере Minecraft. Получите VIP, Premium, Elite и другие преимущества.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@500&family=VT323&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./src/styles/fonts.css">
+  <link rel="stylesheet" href="./src/styles/main.css">
+  <link rel="icon" type="image/gif" href="src/images/minecraft-minecraft-bee.gif">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <nav class="main-nav">
+        <div class="logo">
+          <img src="src/images/minecraft-minecraft-bee.gif" alt="Логотип сервера Minecraft">
+          <div class="server-name">
+            <span class="server-title">TestMine</span>
+            <span class="server-subtitle">Анархический сервер</span>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="#" class="active">Главная</a>
+          <a href="#">Как купить</a>
+          <a href="#">Правила</a>
+          <a href="#" id="support-link">Поддержка</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="donate-section">
+        <h2>Покупка доната</h2>
+        <div class="donate-form">
+          <div class="nickname-input">
+            <label for="nickname">Введите ник:</label>
+            <div class="input-wrapper">
+              <input type="text" id="nickname" placeholder="Ваш никнейм" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="categories">
+            <label>Выберите категорию:</label>
+            <div class="category-tabs">
+              <button class="category-tab active" data-category="privileges">Привилегии</button>
+              <button class="category-tab" data-category="cases">Кейсы</button>
+              <button class="category-tab" data-category="currency">Донат валюта</button>
+              <button class="category-tab" data-category="balance">Биржа баланс</button>
+              <button class="category-tab" data-category="other">Разное</button>
+            </div>
+          </div>
+
+          <div class="server-select">
+            <label for="server-dropdown">Выберите товар:</label>
+            <div class="select-wrapper">
+              <div class="select-btn" id="server-dropdown">
+                <span>Выберите товар</span>
+                <span class="server-price"></span>
+                <span class="arrow"></span>
+              </div>
+              <div class="server-list">
+              </div>
+            </div>
+          </div>
+
+          <div class="period-select" id="period-select">
+            <label>Выберите срок:</label>
+            <div class="period-options">
+              <button class="period-option active" data-period="30">30 дней</button>
+              <button class="period-option" data-period="90">90 дней</button>
+              <button class="period-option" data-period="forever">Навсегда</button>
+            </div>
+          </div>
+
+          <div class="cases-count-input" style="display: none; margin: 15px 0;">
+            <label for="casesCount" id="quantityLabel">Количество:</label>
+            <div class="input-wrapper">
+              <div class="quantity-controls">
+                <button type="button" class="quantity-btn minus-btn" data-action="decrease">-</button>
+                <input type="number" id="casesCount" min="1" max="999999" value="1">
+                <button type="button" class="quantity-btn plus-btn" data-action="increase">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="receipt-option">
+            <label class="checkbox-label">
+              <input type="checkbox" id="needReceipt">
+              <span class="checkbox-custom"></span>
+              Нужен ли чек?
+            </label>
+          </div>
+
+          <div class="email-input">
+            <label for="email">Введите email для получения чека:</label>
+            <div class="input-wrapper">
+              <input type="email" id="email" placeholder="example@mail.com" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="promo-code">
+            <label for="promo">Промокод:</label>
+            <div class="promo-input-wrapper">
+              <input type="text" id="promo" class="promo-input" placeholder="Введите промокод" autocomplete="off">
+              <button class="apply-promo">Применить</button>
+            </div>
+            <div class="promo-status"></div>
+            <div class="promo-discount"></div>
+          </div>
+
+          <button class="purchase-btn" data-tooltip="Нажмите для перехода к оплате">Перейти к оплате</button>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="how-to-join">
+          <h3>Как подключиться к серверу?</h3>
+          <div class="join-info">
+            <!-- <img src="src/images/minecraft-minecraft-bee.gif" alt="Minecraft инструкция"> -->
+            <button class="join-btn" data-tooltip="Инструкция по подключению">Открыть инструкцию</button>
+          </div>
+        </div>
+
+        <div class="monitoring">
+          <h3>Мониторинг</h3>
+          <div class="online-info">
+            <p>Сейчас играют</p>
+            <span class="player-count">234 игрока</span>
+          </div>
+          <div class="server-address">
+            <p>mc.testmine.fun</p>
+            <button class="copy-btn">Скопировать</button>
+          </div>
+        </div>
+
+        <div class="recent-purchases">
+          <h3>Последние покупки</h3>
+          <div class="purchases-list">
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-controls">
+        <!-- <button id="toggle-honeycomb" type="button">Отключить соты</button> -->
+        <!-- <button id="toggle-theme" type="button">Сменить тему</button> -->
+      </div>
+      <p>&copy; 2025 TestMine. Все права защищены.</p>
+    </footer>
+  </div>
+  <div class="modal" id="rulesModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Правила сервера</h2>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="rules-content">
+        <h3>Lorem ipsum</h3>
+        <ol>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+        </ol>
+        <h3>Lorem ipsum</h3>
+        <ul>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+        </ul>
+        <h3>Lorem ipsum</h3>
+        <ul>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+        </ul>
+        <h3>Lorem ipsum</h3>
+        <ul>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+        </ul>
+        <h3>Lorem ipsum</h3>
+        <ul>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="joinModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Как подключиться к серверу?</h2>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="rules-content">
+        <h3>Шаг 1: Подготовка</h3>
+        <ul>
+          <li>Убедитесь, что у вас установлен Minecraft версии 1.19.2 или выше</li>
+          <li>Запустите игру и перейдите в раздел "Сетевая игра"</li>
+        </ul>
+
+        <h3>Шаг 2: Подключение</h3>
+        <ol>
+          <li>Нажмите кнопку "Добавить сервер"</li>
+          <li>В поле "Адрес сервера" введите: <code>mc.testmine.fun</code></li>
+          <li>Нажмите "Готово"</li>
+        </ol>
+
+        <h3>Возможные проблемы</h3>
+        <ul>
+          <li>Если сервер не отвечает, проверьте подключение к интернету</li>
+          <li>Убедитесь, что вы используете правильную версию игры</li>
+          <li>Проверьте правильность введенного IP-адреса</li>
+        </ul>
+
+        <h3>Дополнительная информация</h3>
+        <ul>
+          <li>Сервер работает круглосуточно</li>
+          <li>Техническая поддержка доступна в нашем Discord</li>
+          <li>Рекомендуемая версия игры: 1.19.2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="howToBuyModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Как купить донат?</h2>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="rules-content">
+        <h3>Шаг 1: Выбор привилегии</h3>
+        <ol>
+          <li>Введите свой никнейм в поле "Введите ник"</li>
+          <li>Выберите категорию товара (привилегии, кейсы и т.д.)</li>
+          <li>Для привилегий выберите срок действия (30 дней, 90 дней или навсегда)</li>
+          <li>Выберите нужный товар из списка</li>
+        </ol>
+
+        <h3>Шаг 2: Оплата</h3>
+        <ol>
+          <li>Нажмите кнопку "Перейти к оплате"</li>
+          <li>Выберите удобный способ оплаты:
+            <ul>
+              <li>Банковская карта</li>
+              <li>ЮMoney</li>
+              <li>Криптовалюта</li>
+            </ul>
+          </li>
+          <li>Следуйте инструкциям платёжной системы</li>
+        </ol>
+
+        <h3>Шаг 3: Получение привилегии</h3>
+        <ul>
+          <li>После успешной оплаты привилегия выдаётся автоматически</li>
+          <li>Если вы находитесь в игре, перезайдите на сервер</li>
+          <li>Проверьте свои привилегии командой <code>/donate</code></li>
+        </ul>
+
+        <h3>Важная информация</h3>
+        <ul>
+          <li>Сохраняйте чек об оплате до активации привилегии</li>
+          <li>При возникновении проблем обратитесь в поддержку</li>
+          <li>Возврат средств возможен в течение 24 часов после покупки</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="supportModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Поддержка</h2>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="rules-content">
+        <h3>Как связаться с поддержкой?</h3>
+        <ul>
+          <li>Вы можете задать вопрос в нашем <a href="https://discord.gg/ваш_дискорд" target="_blank">Discord</a></li>
+          <li>Или написать на email: <a href="mailto:support@testmine.fun">support@testmine.fun</a></li>
+        </ul>
+        <h3>Часто задаваемые вопросы</h3>
+        <ul>
+          <li>Не пришёл донат — проверьте правильность введённого ника и email, а также статус оплаты.</li>
+          <li>Возврат средств — возможен в течение 24 часов после покупки, напишите нам на почту.</li>
+          <li>Технические проблемы — опишите вашу проблему максимально подробно, приложите скриншоты.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="messageOverlay"></div>
+  <div class="modal-message" id="messageModal">
+    <p id="messageText"></p>
+    <button class="ok-button">OK</button>
+  </div>
+
+  <script src="./src/scripts/script.js"></script>
+</body>
+
+</html>
