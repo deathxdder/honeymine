@@ -88,7 +88,7 @@ minecraft-website/
 
 1. **Клонирование репозитория**
    ```bash
-   git clone [url-репозитория]
+   git clone https://github.com/deathxdder/honeymine.git
    cd minecraft-website
    ```
 
